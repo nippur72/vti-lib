@@ -33,12 +33,10 @@ void main(void) {
     printf("Write... press ESC to exit\r\n");
 
     while(1) {
-        c1=read_port() & 0x80;
-        do {
-            c2=read_port() & 0x80;
-        } while(c1);
-
+        while(!vti_keyboard_pressed());
         c = vti_key_ascii();
+        while(vti_keyboard_pressed());
+
         printf("%c",c);
         if(c==27 || c==(27|0x80)) break;
     }
